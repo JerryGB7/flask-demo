@@ -13,10 +13,10 @@ pipeline{
         }
         stage('Stop existing containers'){
             steps{
-                catchError{
+                catchError(buildResult: 'SUCCESS'){
                     sh 'docker stop flask-app'
                 }
-                catchError{
+                catchError(buildResult: 'SUCCESS'){
                     sh 'docker rm -f flask-app'
                 }
             }
