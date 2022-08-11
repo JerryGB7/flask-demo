@@ -16,9 +16,9 @@ pipeline{
                 catchError{
                     sh 'docker stop flask-app'
                 }
-                catchError{
-                    sh 'docker stop flask-app'
-                }
+                
+                sh 'docker rm -f flask-app'
+                
             }
         }
         stage('Build the image'){
