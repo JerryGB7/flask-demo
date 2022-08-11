@@ -11,10 +11,16 @@ pipeline{
                 git 'https://github.com/JerryGB7/flask-demo.git'
             }
         }
+        stage('Stop existing containers'){
+            steps{
+                sh 'docker stop $(docker ps -a -q)'
+                sh 'docker rm %(docker ps -a -q)
+            }
+        }
         stage('Build the image'){
             steps{
                 script{
-                    dockerImage = docker.build registry + ":$BUILD_NUMBER"
+                    dockerImage = docker.build registry + ":BUILD_NUMBER"
                 }
             }
         }
