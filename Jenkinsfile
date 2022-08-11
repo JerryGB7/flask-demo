@@ -15,7 +15,9 @@ pipeline{
             steps{
                 catchError{
                     sh 'docker stop flask-app'
-                    sh 'docker rm -f flask-app'
+                }
+                catchError{
+                    sh 'docker stop flask-app'
                 }
             }
         }
