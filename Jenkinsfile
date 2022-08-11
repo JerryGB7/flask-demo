@@ -5,7 +5,7 @@ pipeline {
         stage('Build') {
             steps {
                 // Get some code from a GitHub repository
-                git 'https://github.com/2206-devops-batch/flask-demo.git'
+                git 'https://github.com/JerryGB7/flask-demo.git'
 
                 // Run venv
                 sh "python3 -m venv .venv"
@@ -15,6 +15,11 @@ pipeline {
                 
                 // Run pytest
                 sh "python3 -m pytest app-test.py"
+            }
+        }
+        stage('docker'){
+            withCredentials([string(credentialsId: 'Dockerpw', variable: 'DOCKER')]) {
+                sh "docker login -u jerrygb7 -p {Docker}"
             }
         }
     }
