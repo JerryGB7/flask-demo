@@ -15,8 +15,8 @@ pipeline{
         }
         stage('Stop existing containers'){
             steps{
-                sh 'docker stop $dockerStop'
-                sh 'docker rm $dockerRemove'
+                sh 'docker stop $($dockerStop)'
+                sh 'docker rm $($dockerRemove)'
             }
         }
         stage('Build the image'){
