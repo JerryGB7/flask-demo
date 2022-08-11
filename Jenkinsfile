@@ -3,6 +3,7 @@ pipeline{
         registry = "jerrygb7/flask"
         registryCredential = 'Dockerhub'
         dockerImage = ''
+        PATH = "$PATH:/opt/maven/bin"
     }
     agent any
     stages {
@@ -30,6 +31,14 @@ pipeline{
         stage('Cleaning up'){
             steps{
                 sh "docker rmi $registry:$BUILD_NUMBER"
+            }
+        }
+        stage('SonarQube analysis') {
+            steps{
+                withSonarQubeEnv('sonarqube-8.9.9') { 
+                // If you have configured more than one global server connection, you can specify its name
+                    sh "mvn sonar:sonar"
+                }
             }
         }
     }
