@@ -11,12 +11,12 @@ pipeline{
                 git 'https://github.com/JerryGB7/flask-demo.git'
             }
         }
-        /*stage('Stop existing containers'){
+        stage('Stop existing containers'){
             steps{
-                sh 'docker stop '
-                sh 'docker rm $($dockerRemove)'
+                sh 'docker stop flask-app'
+                sh 'docker rm flask-app'
             }
-        }*/
+        }
         stage('Build the image'){
             steps{
                 script{
