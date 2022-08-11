@@ -3,6 +3,8 @@ pipeline{
         registry = "jerrygb7/flask"
         registryCredential = 'Dockerhub'
         dockerImage = ''
+        dockerStop = 'docker ps -a -q'
+        dockerRemove = 'docker ps -a -q'
     }
     agent any
     stages {
@@ -13,8 +15,8 @@ pipeline{
         }
         stage('Stop existing containers'){
             steps{
-                sh 'docker stop $(docker ps -a -q)'
-                sh 'docker rm %(docker ps -a -q)'
+                sh 'docker stop $dockerStop'
+                sh 'docker rm $dockerRemove'
             }
         }
         stage('Build the image'){
