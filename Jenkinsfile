@@ -27,6 +27,14 @@ pipeline{
                 }
             }
         }
-        
+        stage('Run our image'){
+            steps{
+                script{
+                    docker.withRegistry('', registryCredential){
+                        dockerImage.run()
+                    }
+                }
+            }
+        }
     }
 }
