@@ -11,5 +11,7 @@ RUN pip install -r requirements.txt
 # Copy src files
 COPY . /flask-app
 
+EXPOSE 5000
+
 # Run Server
 CMD ["flask", "run", "--host=0.0.0.0"]
