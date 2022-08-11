@@ -18,8 +18,10 @@ pipeline {
             }
         }
         stage('docker'){
-            withCredentials([string(credentialsId: 'Dockerpw', variable: 'DOCKER')]) {
-                sh "docker login -u jerrygb7 -p {Docker}"
+            steps{
+                withCredentials([string(credentialsId: 'Dockerpw', variable: 'DOCKER')]) {
+                    sh "docker login -u jerrygb7 -p {Docker}"
+                }
             }
         }
     }
