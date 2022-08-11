@@ -1,27 +1,35 @@
-pipeline {
+pipeline{
+    environment {
+        registry = "jerrygb7/flask"
+        registryCredential = 'Dockerhub'
+        dockerImage = ''
+    }
     agent any
-
     stages {
-        stage('Build') {
-            steps {
-                // Get some code from a GitHub repository
+        stage('Cloning our Git'){
+            steps{
                 git 'https://github.com/JerryGB7/flask-demo.git'
-
-                // Run venv
-                sh "python3 -m venv .venv"
-
-                // Run pip install
-                sh "pip3 install -r requirements-dev.txt"
-                
-                // Run pytest
-                sh "python3 -m pytest app-test.py"
             }
         }
-        stage('docker'){
+        stage('Build the image'){
             steps{
-                withCredentials([string(credentialsId: 'Dockerpw', variable: 'DOCKER')]) {
-                    sh "docker login -u jerrygb7 -p {Dockerpw}"
+                script{
+                    dockerImage = docker.build registry + ":$BUILD_NUMBER"
                 }
+            }
+        }
+        stage('Deploy our image'){
+            steps{
+                script{
+                    docker.withRegistry('', registryCredential){
+                        dockerImage.push()
+                    }
+                }
+            }
+        }
+        stage('Cleaning up'){
+            steps{
+                sh "docker rmi $registry:$BUILD_NUMBER"
             }
         }
     }
