@@ -3,8 +3,6 @@ pipeline{
         registry = "jerrygb7/flask"
         registryCredential = 'Dockerhub'
         dockerImage = ''
-        dockerStop = 'docker ps -a -q'
-        dockerRemove = 'docker ps -a -q'
     }
     agent any
     stages {
@@ -13,12 +11,12 @@ pipeline{
                 git 'https://github.com/JerryGB7/flask-demo.git'
             }
         }
-        stage('Stop existing containers'){
+        /*stage('Stop existing containers'){
             steps{
-                sh 'docker stop $($dockerStop)'
+                sh 'docker stop '
                 sh 'docker rm $($dockerRemove)'
             }
-        }
+        }*/
         stage('Build the image'){
             steps{
                 script{
