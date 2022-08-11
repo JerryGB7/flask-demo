@@ -37,7 +37,7 @@ pipeline{
             steps{
                 script{
                     docker.withRegistry('', registryCredential){
-                        sh "docker run -d --name flask-app -p 5000:5000 $registry:$BUILD_NUMBER"
+                        sh "docker run -d --name flask-app $registry:$BUILD_NUMBER"
                     }
                 }
             }
