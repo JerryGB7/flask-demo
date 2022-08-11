@@ -13,8 +13,10 @@ pipeline{
         }
         stage('Stop existing containers'){
             steps{
-                sh 'docker stop flask-app'
-                sh 'docker rm -f flask-app'
+                catchError{
+                    sh 'docker stop flask-app'
+                    sh 'docker rm -f flask-app'
+                }
             }
         }
         stage('Build the image'){
