@@ -13,7 +13,7 @@ pipeline{
         }
         stage('Stop existing containers'){
             steps{
-                sh 'docker stop -f flask-app'
+                sh 'docker stop flask-app'
                 sh 'docker rm -f flask-app'
             }
         }
