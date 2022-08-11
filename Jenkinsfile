@@ -31,7 +31,7 @@ pipeline{
             steps{
                 script{
                     docker.withRegistry('', registryCredential){
-                        dockerImage.run()
+                        sh "docker run -d -p 5000:5000 $registry:$BUILD_NUMBER"
                     }
                 }
             }
