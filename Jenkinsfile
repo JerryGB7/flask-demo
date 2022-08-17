@@ -11,6 +11,13 @@ pipeline{
                 git 'https://github.com/JerryGB7/flask-demo.git'
             }
         }
+        stage ('Start running docker'){
+            steps{
+                catchError(buildResult: 'SUCCESS'){
+                    sh 'systemctl start docker'
+                }
+            }
+        }
         stage('Stop existing containers'){
             steps{
                 catchError(buildResult: 'SUCCESS'){
