@@ -3,6 +3,7 @@ pipeline{
         registry = "jerrygb7/flask"
         registryCredential = 'Dockerhub'
         dockerImage = ''
+        PATH = "$PATH:/opt/maven"
     }
     agent any
     stages {
