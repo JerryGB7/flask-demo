@@ -3,7 +3,6 @@ pipeline{
         registry = "jerrygb7/flask"
         registryCredential = 'Dockerhub'
         dockerImage = ''
-        PATH = "$PATH:/opt/maven"
     }
     agent any
     stages {
@@ -51,15 +50,6 @@ pipeline{
                     docker.withRegistry('', registryCredential){
                         sh "docker run -d -p 5000:5000 --name flask-app $registry:$BUILD_NUMBER"
                     }
-                }
-            }
-        }
-        stage('SonarQube analysis') {
-//    def scannerHome = tool 'SonarScanner 4.0';
-            steps{
-                withSonarQubeEnv('sonarqube-8.9.9') { 
-               
-                    sh "mvn sonar:sonar"
                 }
             }
         }
